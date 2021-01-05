@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>gregory.solutions</title>
+    <link rel="stylesheet" href="/public/css/main.css">
+</head>
+<body>
+
+{{template "nav-main"}}
+
+<div id="index-padding">&nbsp;</div>
+
+<div id="blog-main">
+
+    {{ range .}}
+    <div class="blog-container">
+        <div class="blog-container-content">
+            <div class="blog-container-content-head">
+                {{/* <span class="blog-container-content-title">{{.Title}}</span> */}}
+                {{/* <span class="blog-container-content-category">{{.Category}}</span> */}}
+            </div>
+            {{/* <div class="blog-container-content-timestamp">{{.Timestamp}}</div> */}}
+            <div class="blog-container-content-blurb">
+                {{/* <a href="/pe/{{.ID}}">View Post</a> */}}
+            </div>
+        </div>
+    </div>
+    {{ end }}
+
+    <div class="blog-container">
+        <div class="blog-container-content">
+            <ul>
+                <li>Coming soon!</a></li> 
+            </ul>
+        </div>
+    </div>
+</div>
+</body>
+</html>

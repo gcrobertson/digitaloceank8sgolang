@@ -1,0 +1,47 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  creationTimestamp: null
+  labels:
+    app: millicent
+    object: millicent-deployment
+  name: millicent-deployment
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: millicent
+      object: millicent-app-pod
+  strategy: {}
+  template:
+    metadata:
+      creationTimestamp: null
+      labels:
+        app: millicent
+        object: millicent-app-pod
+      name: millicent-app-pod
+    spec:
+      containers:
+      - image: gcrobertson/gregorysolutions:v1.0.3
+        name: millicent-app-container
+        ports:
+        - containerPort: 8080
+        # @TODO: try out these different ways:
+        # - inline with env variables
+        # - inline with the whole secret
+        # - mount a volume and attach the volumeMount to this pod
+        env:
+        - name: MYSQL_ROOT_USER
+          valueFrom:
+            secretKeyRef:
+              name: mysql-secret
+              key: user
+        - name: MYSQL_ROOT_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: mysql-secret
+              key: password
+      imagePullSecrets:
+      - name: millicent-dockerhub-secret
+      dnsPolicy: ClusterFirst
+      restartPolicy: Always

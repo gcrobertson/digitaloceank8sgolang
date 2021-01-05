@@ -1,0 +1,18 @@
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app: millicent
+    object: millicent-deployment-service
+  name: millicent-deployment-service
+  namespace: default
+spec:
+  type: NodePort
+  ports:
+  - port: 8080          # @TODO: Why this is port 8080 and not port 80?
+    nodePort: 32603     # hard-coded in development to ease accessibility via http://<cluster-ip>:<this-node-port>
+    protocol: TCP
+    targetPort: 8080
+  selector:
+    app: millicent
+    object: millicent-app-pod
